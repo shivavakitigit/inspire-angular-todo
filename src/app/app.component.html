@@ -1,0 +1,68 @@
+<h1>My Todos</h1>
+
+<div class="todo-wrapper">
+  <div class="todo-input">
+    <div class="todo-input-item">
+      <label>New Task:</label>
+      <input
+        type="text"
+        [(ngModel)]="newTodoTitle"
+        placeholder="Enter Task"
+      />
+    </div>
+    <div class="todo-input-item">
+      <button class="primary-btn" type="button" (click)="handleAddNewTodo()">
+        Add Task
+      </button>
+    </div>
+  </div>
+
+  <div class="btn-area">
+    <button
+      class="secondaryBtn"
+      [class.active]="filter === 'all'"
+      (click)="handleFilter('all')"
+    >
+      All Tasks
+    </button>
+    <button
+      class="secondaryBtn"
+      [class.active]="filter === 'completed'"
+      (click)="handleFilter('completed')"
+    >
+      Completed
+    </button>
+    <button
+      class="secondaryBtn"
+      [class.active]="filter === 'active'"
+      (click)="handleFilter('active')"
+    >
+      Active
+    </button>
+  </div>
+
+  <div class="todo-list">
+    <div
+      class="todo-list-item"
+      *ngFor="let todo of getFilteredTodos(); let i = index"
+    >
+      <div>
+        <h3>{{ todo.title }}</h3>
+        <p>Status: {{ todo.completed ? 'Completed' : 'Active' }}</p>
+      </div>
+      <div>
+        <ng-container *ngIf="!todo.completed">
+          <button  (click)="handleDeleteTodo(i)">
+            <i class="bi bi-trash"></i>
+
+          </button>
+          <button class="check-icon" (click)="handleCompleteTodo(i)">
+            <i class="bs bs-check-lg"></i>
+           
+            
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
